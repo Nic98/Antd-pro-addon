@@ -35,7 +35,7 @@ for (let i = 0; i < 46; i++) {
     key: i,
     name: `Edward King ${i}`,
     age: 32,
-    address: `London, Park Lane no.${i}`,
+    address: `London, Park Lane no. ${i}`,
   });
 }
 
@@ -64,11 +64,12 @@ export default function Warehouse() {
       setFilterParamList([])
       setFilterParamList(
         data.filter(item => {	
+          console.log(typeof(item);
         //  其中任一含有associatedvalue则通过筛选
           if (
             item?.name?.indexOf(associatedvalue) !== -1 ||
-            item?.age?.toString().indexOf(associatedvalue) !== -1 ||
-            item?.address?.indexOf(associatedvalue) !== -1
+            item?.displayName?.indexOf(associatedvalue) !== -1 ||
+            item?.paramValue?.indexOf(associatedvalue) !== -1
           ) {
             return true
           }

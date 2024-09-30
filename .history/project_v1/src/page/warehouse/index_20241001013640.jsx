@@ -64,10 +64,11 @@ export default function Warehouse() {
       setFilterParamList([])
       setFilterParamList(
         data.filter(item => {	
+          console.log(typeof(item.age), item.name, item.address);
         //  其中任一含有associatedvalue则通过筛选
           if (
             item?.name?.indexOf(associatedvalue) !== -1 ||
-            item?.age?.toString().indexOf(associatedvalue) !== -1 ||
+            // item?.age?.indexOf(associatedvalue) !== -1 ||
             item?.address?.indexOf(associatedvalue) !== -1
           ) {
             return true

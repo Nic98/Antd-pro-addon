@@ -35,7 +35,7 @@ for (let i = 0; i < 46; i++) {
     key: i,
     name: `Edward King ${i}`,
     age: 32,
-    address: `London, Park Lane no.${i}`,
+    address: `London, Park Lane no. ${i}`,
   });
 }
 
@@ -60,15 +60,16 @@ export default function Warehouse() {
   }, [data])
 
   useEffect(() => {
-    if (associatedvalue !== '') {  //当value不为空时
+    if (associatedvalue !== '') {		//当value不为空时
       setFilterParamList([])
       setFilterParamList(
         data.filter(item => {	
+        //  name,displayName,paramValue为接口数据中属性（根据需求灵活变更）
         //  其中任一含有associatedvalue则通过筛选
           if (
             item?.name?.indexOf(associatedvalue) !== -1 ||
-            item?.age?.toString().indexOf(associatedvalue) !== -1 ||
-            item?.address?.indexOf(associatedvalue) !== -1
+            item?.displayName?.indexOf(associatedvalue) !== -1 ||
+            item?.paramValue?.indexOf(associatedvalue) !== -1
           ) {
             return true
           }
