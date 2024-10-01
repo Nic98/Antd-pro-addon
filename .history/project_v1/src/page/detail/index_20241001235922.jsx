@@ -104,10 +104,9 @@ export default function Detail() {
     <div>
       <Card
         title="退款申请"
-        bordered={false}
+        bordered={true}
         style={{
           width: "100%",
-          paddingTop: "10px"
         }}
       >
       <div className='refund-detail'>
@@ -128,10 +127,10 @@ export default function Detail() {
       
       <Card
         title="用户信息"
-        bordered={false}
+        bordered={true}
         style={{
           width: "100%",
-          paddingTop: "10px"
+          style={{paddingTop: "20px"}}
         }}
       >
       <div className='refund-detail'>

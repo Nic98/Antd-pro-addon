@@ -35,6 +35,7 @@ const goodsColumns = [
 ];
 
 const progressColumns = [
+
   {
     title: '时间',
     dataIndex: 'time',
@@ -104,10 +105,9 @@ export default function Detail() {
     <div>
       <Card
         title="退款申请"
-        bordered={false}
+        bordered={true}
         style={{
           width: "100%",
-          paddingTop: "10px"
         }}
       >
       <div className='refund-detail'>
@@ -128,10 +128,9 @@ export default function Detail() {
       
       <Card
         title="用户信息"
-        bordered={false}
+        bordered={true}
         style={{
           width: "100%",
-          paddingTop: "10px"
         }}
       >
       <div className='refund-detail'>
@@ -154,24 +153,21 @@ export default function Detail() {
       </Card>
 
       <Table
-        title={() => '退货商品'}
+        title=
         columns={_.filter(goodsColumns, item => item.show !== false)}
         dataSource={_.uniqBy(basicGoods, 'id')}
         rowKey = {(record) => record.id}
         pagination={false}
         size="middle"
         scroll={{ y: 350 }}
-        style={{paddingTop: "20px"}}
       />
       <Table
-        title={() => '退货进度'}
         columns={_.filter(progressColumns, item => item.show !== false)}
         dataSource={_.uniqBy(baiscProgress, 'key')}
         pagination={false}
         rowKey = {(record) => record.key}
         size="middle"
         scroll={{ y: 350 }}
-        style={{paddingTop: "20px"}}
       />
       </div>
   );
