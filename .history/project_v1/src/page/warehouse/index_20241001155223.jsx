@@ -15,16 +15,16 @@ const columns = [{
   key: 'desc',
 }, {
   title: '服务调用次数',
-  dataIndex: 'callNo',
-  key: 'callNo',
+  dataIndex: 'numbertimes',
+  key: 'numbertimes',
 }, {
   title: '状态',
   dataIndex: 'status',
   key: 'status',
 }, {
   title: '上次调度时间',
-  dataIndex: 'updatedAt',
-  key: 'updatedAt',
+  dataIndex: 'lasttime',
+  key: 'lasttime',
 },
 {
   title: '操作',
@@ -38,29 +38,55 @@ const columns = [{
   ),
 }];
 
-const data = [];
+// const data = [];
+// for (let i = 0; i < 46; i++) {
+//   data.push({
+//     key: i,
+//     name: `Edward King ${i}`,
+//     desc: `这是一段描述`,
+//     numbertimes: `777万`,
+//     status: `running`, // 0: '关闭', 1: '运行中', 2: '已上线', 3: '异常'
+//     lasttime: `2020-10-10 10:10:10`, // 日期格式化
+//   });
+// }
 
 export default function Warehouse() {
+  // DidMount send ajax actios !!
+  // 请求发送成功 和 失败后 数据注入到redux
+  //  UserComponent 升级为 被redux connect 的一个高阶组件 就像登录页一样数据的规范 尽量使用
+  // 要去封装数据 成 antd columns dataSource 一一对应的方式
+  // 另一种做法简单的就是 发完请求, 数据直接回填setstate到本页的state 用state去取
 
-  const [associatedvalue, setAssociatedValue] = useState('');
-  const [filterparamList, setFilterParamList] = useState([]);
-  const [originalData, setOriginalData] = useState([]);
+
+  // express nodejs 数据库 要做什么
+  // 1: 你批量多搞几条数据 好测试
+  // 2: count 总数
+  const [associatedvalue, setAssociatedValue] = useState('')
+  const [filterparamList, setFilterParamList] = useState([])
+
+  const originalData = [];
 
   useEffect(() => {
     fetch("https://proapi.azurewebsites.net/api/rule?token%20=%20123&current=1&pageSize=20")
       .then(response => response.json())
-      .then(res => {
-        setFilterParamList(res.data);
-        setOriginalData(res.data);
+      .then(data => {
+        console.log(data);
+        originalData = data;
+        setFilterParamList(data);
       }
     )
   }, [])
+
+
+  // useEffect(() => {
+  //   setFilterParamList(data || [])
+  // }, [data])
 
   useEffect(() => {
     if (associatedvalue !== '') {  //当value不为空时
       setFilterParamList([])
       setFilterParamList(
-        filterparamList.filter(item => {	
+        data.filter(item => {	
         //  其中任一含有associatedvalue则通过筛选
           if (
             item?.name?.indexOf(associatedvalue) !== -1
@@ -71,7 +97,7 @@ export default function Warehouse() {
         }),
       )
     } else {	//为空时将渲染原始表格数据
-      setFilterParamList(originalData)
+      setFilterParamList(data)
     }
   }, [associatedvalue])
 

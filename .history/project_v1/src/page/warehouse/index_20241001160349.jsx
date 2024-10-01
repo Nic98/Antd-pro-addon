@@ -46,6 +46,8 @@ export default function Warehouse() {
   const [filterparamList, setFilterParamList] = useState([]);
   const [originalData, setOriginalData] = useState([]);
 
+
+
   useEffect(() => {
     fetch("https://proapi.azurewebsites.net/api/rule?token%20=%20123&current=1&pageSize=20")
       .then(response => response.json())
