@@ -98,12 +98,10 @@ export default function Warehouse() {
   //   xhr.send();
   // }, []);
 
-  useEffect(() => {
-    fetchData("https://proapi.azurewebsites.net/api/rule?token%20=%20123&current=1&pageSize=100", (res) => {
-      setFilterParamList(res.data);
-      setOriginalData(res.data);
-    });
-  }, []);
+  fetchData("https://proapi.azurewebsites.net/api/rule?token%20=%20123&current=1&pageSize=100", (res) => {
+    setFilterParamList(res.data);
+    setOriginalData(res.data);
+  });
 
 
   useEffect(() => {

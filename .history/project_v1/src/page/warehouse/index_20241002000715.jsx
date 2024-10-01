@@ -67,17 +67,7 @@ const columns = [{
 }];
 
 
-function fetchData(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", url, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      const res = JSON.parse(xhr.responseText);
-      callback(res);
-    }
-  };
-  xhr.send();
-}
+
 
 export default function Warehouse() {
 
@@ -85,26 +75,18 @@ export default function Warehouse() {
   const [filterparamList, setFilterParamList] = useState([]);
   const [originalData, setOriginalData] = useState([]);
 
-  // useEffect(() => {
-  //   const xhr = new XMLHttpRequest();
-  //   xhr.open("GET", "https://proapi.azurewebsites.net/api/rule?token%20=%20123&current=1&pageSize=100", true);
-  //   xhr.onreadystatechange = function () {
-  //     if (xhr.readyState === 4 && xhr.status === 200) {
-  //       const res = JSON.parse(xhr.responseText);
-  //       setFilterParamList(res.data);
-  //       setOriginalData(res.data);
-  //     }
-  //   };
-  //   xhr.send();
-  // }, []);
-
   useEffect(() => {
-    fetchData("https://proapi.azurewebsites.net/api/rule?token%20=%20123&current=1&pageSize=100", (res) => {
-      setFilterParamList(res.data);
-      setOriginalData(res.data);
-    });
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://proapi.azurewebsites.net/api/rule?token%20=%20123&current=1&pageSize=100", true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const res = JSON.parse(xhr.responseText);
+        setFilterParamList(res.data);
+        setOriginalData(res.data);
+      }
+    };
+    xhr.send();
   }, []);
-
 
   useEffect(() => {
     if (associatedvalue !== '') {  //当value不为空时
