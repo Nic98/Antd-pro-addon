@@ -129,7 +129,7 @@ export default function Warehouse() {
   return (
     <div>
       <Input
-        value={associatedvalue || ''}
+        value={associatedvalue}
         onChange={e => {
           setAssociatedValue(e.target.value?.trim())
         }}
