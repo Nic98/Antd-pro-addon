@@ -1,0 +1,36 @@
+var express = require('express');
+var router = express.Router();
+const fs = require('fs');
+const path = require('path');
+
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'project_v1' });
+});
+
+router.post('/try/ajax/ajax_info', function (req, res, next) {
+  // res.render('index', {
+  //   title: 'project_v1'
+  // });
+  res.json({
+    code: 200,
+    msg: 'ok',
+  });
+});
+
+router.get('/queryById',  async (req, res, next) => {
+  if (req.query.userId) {
+    res.json({
+      code: 200,
+      msg: 'ok',
+    });
+  } else {
+    res.json({
+      code: 500,
+      msg: 'not ok',
+    });
+  }
+});
+
+
+
+module.exports = router;
