@@ -4,9 +4,8 @@ var Schema = mongoose.Schema;
 var GoodsSchema = new Schema({
 
     goodsId: {
-      type: String,
-      required: true,
-      index: { unique: true, dropDups: true },
+        type: String,
+        required: true,
     },
     seq: {
         type: Number,

@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/add', async (req, res, next) => {
   // 新增的数据库操作
   try {
-    const docs = await M.goods.create({goodsId:'special', goodsName: '212421' });
+    const docs = await M.goods.create({  goodsName: '212421' });
     console.log('添加成功, 返回的数据为', docs);
     res.render('index', { title: '添加成功' });
   } catch (error) {

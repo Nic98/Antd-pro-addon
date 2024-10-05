@@ -5,8 +5,7 @@ var GoodsSchema = new Schema({
 
     goodsId: {
       type: String,
-      required: true,
-      index: { unique: true, dropDups: true },
+      index: { unique: true, dropDups: true, requried: true }
     },
     seq: {
         type: Number,

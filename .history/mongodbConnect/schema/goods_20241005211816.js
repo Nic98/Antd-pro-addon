@@ -4,9 +4,7 @@ var Schema = mongoose.Schema;
 var GoodsSchema = new Schema({
 
     goodsId: {
-      type: String,
-      required: true,
-      index: { unique: true, dropDups: true },
+        type: String
     },
     seq: {
         type: Number,
@@ -22,4 +20,4 @@ var GoodsSchema = new Schema({
     },
 });
 
-module.exports = GoodsSchema;
+module.exports = mongoose.model('goods', GoodsSchema); // 生成表 goods

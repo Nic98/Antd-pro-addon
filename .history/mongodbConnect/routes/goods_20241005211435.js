@@ -4,14 +4,9 @@ var router = express.Router();
 /* GET home page. */
 router.get('/add', async (req, res, next) => {
   // 新增的数据库操作
-  try {
-    const docs = await M.goods.create({goodsId:'special', goodsName: '212421' });
-    console.log('添加成功, 返回的数据为', docs);
-    res.render('index', { title: '添加成功' });
-  } catch (error) {
-    console.error('Error adding data:', error);
-    next(error);
-  }
+  const docs = await M.goods.create({ goods_id: 124,  goods_name: '212421'});
+  console.log('添加成功, 返回的数据为', docs);
+  res.render('index', { title: '添加成功' });
 });
 
 router.get('/', async (req, res, next) => {
