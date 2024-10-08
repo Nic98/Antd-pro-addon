@@ -38,9 +38,9 @@ export const deleteGoods = async (data) => {
   }
 };
 
-export const updateGoods = async (id, data) => {
+export const updateGoods = async (data) => {
   try {
-    const response = await axios.put(`${API_URL_PUT}/${id}`, data);
+    const response = await axios.put(API_URL_PUT, data);
     console.log('Success:', response.data);
     return response.data;
   } catch (error) {

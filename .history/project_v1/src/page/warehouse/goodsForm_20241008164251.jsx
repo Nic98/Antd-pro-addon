@@ -28,6 +28,9 @@ const formItemLayout = {
 };
 
 const goodsForm = ({ OnAddGoods }) => {
+  const onFinish = (values) => {
+    OnAddGoods(values);
+  };
 
   return (
     <Form

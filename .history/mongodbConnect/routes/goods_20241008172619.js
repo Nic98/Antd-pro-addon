@@ -60,11 +60,11 @@ router.put('/update/:_id', async (req, res, next) => {
     const _id = req.params._id;
     const updateData = req.body;
     const updatedGoods = await M.goods.findByIdAndUpdate(_id, updateData, { new: true });
-    console.log(updatedGoods);
+    console.log(up)
     if (!updatedGoods) {
       return res.status(404).send('Goods not found');
     }
-    res.json(updatedGoods);
+    // res.json(updatedGoods);
   } catch (error) {
     next(error);
   }

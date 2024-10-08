@@ -29,6 +29,7 @@ const formItemLayout = {
 
 const goodsForm = ({ OnAddGoods }) => {
 
+
   return (
     <Form
       {...formItemLayout}

@@ -54,18 +54,22 @@ router.delete('/delete', async (req, res, next) => {
 });
 
 /* Update one goods. */
-router.put('/update/:_id', async (req, res, next) => {
-
+router.put('/update:id', async (req, res, next) => {
+  const { id } = req.params;
+  const updateData = req.body;
   try {
-    const _id = req.params._id;
-    const updateData = req.body;
-    const updatedGoods = await M.goods.findByIdAndUpdate(_id, updateData, { new: true });
-    console.log(updatedGoods);
-    if (!updatedGoods) {
-      return res.status(404).send('Goods not found');
+    const resp = await M.goods.findOne({ _id: updateId });
+    if (resp) {
+      resp.key = req.body.key;
+      resp.name = req.body.name;
+      resp.desc = req.body.desc;
+      resp.callNo = req.body.callNo;
+    } else {
+      console.error(`更新的ID${updateId}库里没数据`);
+      res.status(404).json({ error: `Item with ID ${updateId} not found.` });
     }
-    res.json(updatedGoods);
   } catch (error) {
+    console.error(`Error updating item with ID ${updateId}:`, error);
     next(error);
   }
 });

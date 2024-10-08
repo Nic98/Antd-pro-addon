@@ -64,7 +64,7 @@ router.put('/update/:_id', async (req, res, next) => {
     if (!updatedGoods) {
       return res.status(404).send('Goods not found');
     }
-    res.json(updatedGoods);
+    // res.json(updatedGoods);
   } catch (error) {
     next(error);
   }

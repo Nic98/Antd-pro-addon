@@ -54,18 +54,21 @@ router.delete('/delete', async (req, res, next) => {
 });
 
 /* Update one goods. */
-router.put('/update/:_id', async (req, res, next) => {
-
+router.put('/update', async (req, res, next) => {
+  console.log(req.params);
+  console.log(req.body);
   try {
-    const _id = req.params._id;
+    const { _id } = req.params;
     const updateData = req.body;
-    const updatedGoods = await M.goods.findByIdAndUpdate(_id, updateData, { new: true });
-    console.log(updatedGoods);
+    console.log(id);
+    console.log(updateData);
+    const updatedGoods = await Goods.findByIdAndUpdate(_id, updateData, { new: true });
     if (!updatedGoods) {
       return res.status(404).send('Goods not found');
     }
-    res.json(updatedGoods);
+    // res.json(updatedGoods);
   } catch (error) {
+    res.status(500).send('Error updating data:', error);
     next(error);
   }
 });

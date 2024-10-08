@@ -28,6 +28,7 @@ router.get('/', async (req, res, next) => {
     const docs = await M.goods.find({}).sort({ seq: 1 });
     console.log('查询到的数据为', docs);
     res.json(docs);
+    // res.render('index', { title: '查询成功', data: docs });
   } catch (error) {
     console.error('Error fetching data:', error);
     next(error);
@@ -54,21 +55,16 @@ router.delete('/delete', async (req, res, next) => {
 });
 
 /* Update one goods. */
-router.put('/update/:_id', async (req, res, next) => {
-
+router.put('/update', async (req, res, next) => {
+  const updateId = req.query._id;
   try {
-    const _id = req.params._id;
-    const updateData = req.body;
-    const updatedGoods = await M.goods.findByIdAndUpdate(_id, updateData, { new: true });
-    console.log(updatedGoods);
-    if (!updatedGoods) {
-      return res.status(404).send('Goods not found');
-    }
-    res.json(updatedGoods);
-  } catch (error) {
-    next(error);
-  }
-});
+    const resp = await M.goods.findOne({ _id: updateId });
+    if (resp) {
+      resp.key = req.body.key;
+      resp.name = req.body.name;
+      resp.desc = req.body.desc;
+      resp.callNo = req.body.callNo;
+
 
 // 去解决多层回调地狱的问题 callback hell
 // promise

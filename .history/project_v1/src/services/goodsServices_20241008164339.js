@@ -3,8 +3,6 @@ import axios from 'axios';
 const API_URL_GET = 'http://localhost:3000/goods';
 const API_URL_POST = 'http://localhost:3000/goods/add';
 const API_URL_DELETE = 'http://localhost:3000/goods/delete';
-const API_URL_PUT = 'http://localhost:3000/goods/update';
-
 
 export const getGoodsList = async (data) => {
   try {
@@ -38,9 +36,9 @@ export const deleteGoods = async (data) => {
   }
 };
 
-export const updateGoods = async (id, data) => {
+export const updateGoods = async (data) => {
   try {
-    const response = await axios.put(`${API_URL_PUT}/${id}`, data);
+    const response = await axios.put(API_URL_PUT, data);
     console.log('Success:', response.data);
     return response.data;
   } catch (error) {
