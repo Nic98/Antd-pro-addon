@@ -136,8 +136,9 @@ export default function Warehouse() {
     setIsModalVisible(true);
   };
 
-  const handleUpdateGoods = async () => {
-    await updateTable();
+  const handleUpdateGoods = async (goods) => {
+    await updateGoods(goods)
+    updateTable();
     setIsModalVisible(false);
   };
 

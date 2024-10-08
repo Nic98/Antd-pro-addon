@@ -1,12 +1,16 @@
 import {
-  Input, Table, Divider, Badge, Modal
+  Input, Table, Divider, Badge,
 } from 'antd';
 import _ from 'lodash';
 import React, {useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { addGoods, getGoodsList, deleteGoods, updateGoods } from '../../services/goodsServices.js';
+import { addGoods, getGoodsList, deleteGoods } from '../../services/goodsServices.js';
 import GoodsForm from './goodsForm.jsx';
-import GoodsUpdateForm from './goodsUpdateForm.jsx';
+
+import type { ProColumns } from '@ant-design/pro-components';
+
+
+
 
 
 // function fetchData(url, callback) {
@@ -79,7 +83,7 @@ export default function Warehouse() {
       <span>
         <a href="javascript:;" onClick={() => { handleDeleteGoods(record); }}>删除</a>
         <Divider type="vertical" />
-        <a href="javascript:;" onClick={() => { handleEditGoods(record); }}>修改</a>
+        <a href="javascript:;">修改</a>
       </span>
     ),
   }];
@@ -87,11 +91,6 @@ export default function Warehouse() {
   const [associatedvalue, setAssociatedValue] = useState('');
   const [filterparamList, setFilterParamList] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-
-  const [editingGoods, setEditingGoods] = useState(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
 
   // useEffect(() => {
   //   const xhr = new XMLHttpRequest();
@@ -105,7 +104,6 @@ export default function Warehouse() {
   //   };
   //   xhr.send();
   // }, []);
-  
   const updateTable = async () => {
     try {
       const data = await getGoodsList();
@@ -131,17 +129,6 @@ export default function Warehouse() {
     updateTable();
   };
 
-  const handleEditGoods = (goods) => {
-    setEditingGoods(goods);
-    setIsModalVisible(true);
-  };
-
-  const handleUpdateGoods = async () => {
-    await updateTable();
-    setIsModalVisible(false);
-  };
-
-
   useEffect(() => {
     if (associatedvalue !== '') {  //当value不为空时
       setFilterParamList(
@@ -163,20 +150,9 @@ export default function Warehouse() {
 
   return (
     <div>
-      <button onClick={() => setIsAddModalVisible(true)}>+</button>
-      <Modal
-        title="Add New Goods"
-        open={isAddModalVisible}
-        onCancel={() => setIsAddModalVisible(false)}
-        footer={null}
-      >
-        <GoodsForm
-          OnAddGoods={handleAddGoods}
-          visible={isAddModalVisible}
-          onClose={() => setIsAddModalVisible(false)}
-        />
-      </Modal>
-
+      <div>
+        <GoodsForm OnAddGoods={handleAddGoods} />
+      </div>
       <Input
         value={associatedvalue || ''}
         onChange={e => {
@@ -187,7 +163,6 @@ export default function Warehouse() {
         style={{ marginLeft: '20px', marginBottom: '6px', width: 350 }}
         prefix={<SearchOutlined style={{ color: '#DEE0E8' }} />}
       />
-
       <Table
         columns={_.filter(columns, item => item.show !== false)}
         dataSource={_.uniqBy(filterparamList, 'key')}
@@ -195,20 +170,6 @@ export default function Warehouse() {
         size="middle"
         scroll={{ y: 350 }}
       />
-
-      <Modal
-        title="Edit Current Goods"
-        open={isModalVisible}
-        onCancel={() => setIsModalVisible(false)}
-        footer={null}
-      >
-        <GoodsUpdateForm
-          visible={isModalVisible}
-          onClose={() => setIsModalVisible(false)}
-          goods={editingGoods}
-          onUpdate={handleUpdateGoods}
-        />
-      </Modal>
     </div>
   );
 }

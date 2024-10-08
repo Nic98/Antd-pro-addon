@@ -134,10 +134,12 @@ export default function Warehouse() {
   const handleEditGoods = (goods) => {
     setEditingGoods(goods);
     setIsModalVisible(true);
+    updateTable
   };
 
-  const handleUpdateGoods = async () => {
-    await updateTable();
+  const handleUpdateGoods = async (goods) => {
+    await updateGoods(goods)
+    updateTable();
     setIsModalVisible(false);
   };
 

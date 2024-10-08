@@ -131,13 +131,16 @@ export default function Warehouse() {
     updateTable();
   };
 
-  const handleEditGoods = (goods) => {
-    setEditingGoods(goods);
+  const handleEditGoods = async (goods) => {
     setIsModalVisible(true);
+    await updateGoods(goods);
+    setEditingGoods(goods);
+    updateTable();
   };
 
-  const handleUpdateGoods = async () => {
-    await updateTable();
+  const handleUpdateGoods = async (goods) => {
+    await updateGoods(goods)
+    updateTable();
     setIsModalVisible(false);
   };
 
@@ -206,7 +209,7 @@ export default function Warehouse() {
           visible={isModalVisible}
           onClose={() => setIsModalVisible(false)}
           goods={editingGoods}
-          onUpdate={handleUpdateGoods}
+          onUpdate={handleEditGoods}
         />
       </Modal>
     </div>

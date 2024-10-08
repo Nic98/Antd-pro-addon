@@ -53,5 +53,5 @@ export default {
   getGoodsList,
   addGoods,
   deleteGoods,
-  updateGoods,
+  const updatedGoods = await M.goods.findByIdAndUpdate(_id, updateData, { new: true });
 };

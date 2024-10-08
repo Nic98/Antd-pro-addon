@@ -87,11 +87,10 @@ export default function Warehouse() {
   const [associatedvalue, setAssociatedValue] = useState('');
   const [filterparamList, setFilterParamList] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-
   const [editingGoods, setEditingGoods] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+
 
   // useEffect(() => {
   //   const xhr = new XMLHttpRequest();
@@ -105,7 +104,6 @@ export default function Warehouse() {
   //   };
   //   xhr.send();
   // }, []);
-  
   const updateTable = async () => {
     try {
       const data = await getGoodsList();
@@ -142,6 +140,7 @@ export default function Warehouse() {
   };
 
 
+
   useEffect(() => {
     if (associatedvalue !== '') {  //当value不为空时
       setFilterParamList(
@@ -163,11 +162,11 @@ export default function Warehouse() {
 
   return (
     <div>
-      <button onClick={() => setIsAddModalVisible(true)}>+</button>
+      <button onClick={() => setIsModalVisible(true)}>add</button>
       <Modal
-        title="Add New Goods"
+        title="Edit Goods"
         open={isAddModalVisible}
-        onCancel={() => setIsAddModalVisible(false)}
+        onCancel={() => setIsModalVisible(false)}
         footer={null}
       >
         <GoodsForm
@@ -197,7 +196,7 @@ export default function Warehouse() {
       />
 
       <Modal
-        title="Edit Current Goods"
+        title="Edit Goods"
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={null}

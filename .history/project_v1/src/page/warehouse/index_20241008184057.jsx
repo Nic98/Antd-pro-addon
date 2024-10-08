@@ -4,7 +4,7 @@ import {
 import _ from 'lodash';
 import React, {useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { addGoods, getGoodsList, deleteGoods, updateGoods } from '../../services/goodsServices.js';
+import { addGoods, getGoodsList, deleteGoods,  } from '../../services/goodsServices.js';
 import GoodsForm from './goodsForm.jsx';
 import GoodsUpdateForm from './goodsUpdateForm.jsx';
 

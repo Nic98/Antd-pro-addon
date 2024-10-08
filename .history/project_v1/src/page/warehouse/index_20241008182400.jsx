@@ -105,7 +105,6 @@ export default function Warehouse() {
   //   };
   //   xhr.send();
   // }, []);
-  
   const updateTable = async () => {
     try {
       const data = await getGoodsList();
@@ -163,11 +162,11 @@ export default function Warehouse() {
 
   return (
     <div>
-      <button onClick={() => setIsAddModalVisible(true)}>+</button>
+      <button onClick={() => setIsAddModalVisible(true)}>add</button>
       <Modal
-        title="Add New Goods"
+        title="Edit Goods"
         open={isAddModalVisible}
-        onCancel={() => setIsAddModalVisible(false)}
+        onCancel={() => setIsModalVisible(false)}
         footer={null}
       >
         <GoodsForm
@@ -197,7 +196,7 @@ export default function Warehouse() {
       />
 
       <Modal
-        title="Edit Current Goods"
+        title="Edit Goods"
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={null}

@@ -53,5 +53,4 @@ export default {
   getGoodsList,
   addGoods,
   deleteGoods,
-  updateGoods,
-};
+  updateGoods,};

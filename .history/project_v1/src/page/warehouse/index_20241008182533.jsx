@@ -105,7 +105,6 @@ export default function Warehouse() {
   //   };
   //   xhr.send();
   // }, []);
-  
   const updateTable = async () => {
     try {
       const data = await getGoodsList();
@@ -163,7 +162,7 @@ export default function Warehouse() {
 
   return (
     <div>
-      <button onClick={() => setIsAddModalVisible(true)}>+</button>
+      <button onClick={() => setIsAddModalVisible(true)}>add New Goods</button>
       <Modal
         title="Add New Goods"
         open={isAddModalVisible}

@@ -206,7 +206,7 @@ export default function Warehouse() {
           visible={isModalVisible}
           onClose={() => setIsModalVisible(false)}
           goods={editingGoods}
-          onUpdate={handleUpdateGoods}
+          onUpdate={updateGoods}
         />
       </Modal>
     </div>

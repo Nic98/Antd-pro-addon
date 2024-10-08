@@ -137,6 +137,7 @@ export default function Warehouse() {
   };
 
   const handleUpdateGoods = async () => {
+    updateGoods
     await updateTable();
     setIsModalVisible(false);
   };

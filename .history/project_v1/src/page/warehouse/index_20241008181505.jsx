@@ -87,11 +87,10 @@ export default function Warehouse() {
   const [associatedvalue, setAssociatedValue] = useState('');
   const [filterparamList, setFilterParamList] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-
   const [editingGoods, setEditingGoods] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+
 
   // useEffect(() => {
   //   const xhr = new XMLHttpRequest();
@@ -105,7 +104,6 @@ export default function Warehouse() {
   //   };
   //   xhr.send();
   // }, []);
-  
   const updateTable = async () => {
     try {
       const data = await getGoodsList();
@@ -142,6 +140,7 @@ export default function Warehouse() {
   };
 
 
+
   useEffect(() => {
     if (associatedvalue !== '') {  //当value不为空时
       setFilterParamList(
@@ -163,20 +162,12 @@ export default function Warehouse() {
 
   return (
     <div>
-      <button onClick={() => setIsAddModalVisible(true)}>+</button>
-      <Modal
-        title="Add New Goods"
-        open={isAddModalVisible}
-        onCancel={() => setIsAddModalVisible(false)}
-        footer={null}
-      >
-        <GoodsForm
-          OnAddGoods={handleAddGoods}
-          visible={isAddModalVisible}
-          onClose={() => setIsAddModalVisible(false)}
-        />
+      <Modal>
+        
       </Modal>
-
+      <div>
+        <GoodsForm OnAddGoods={handleAddGoods} />
+      </div>
       <Input
         value={associatedvalue || ''}
         onChange={e => {
@@ -187,7 +178,6 @@ export default function Warehouse() {
         style={{ marginLeft: '20px', marginBottom: '6px', width: 350 }}
         prefix={<SearchOutlined style={{ color: '#DEE0E8' }} />}
       />
-
       <Table
         columns={_.filter(columns, item => item.show !== false)}
         dataSource={_.uniqBy(filterparamList, 'key')}
@@ -195,9 +185,8 @@ export default function Warehouse() {
         size="middle"
         scroll={{ y: 350 }}
       />
-
       <Modal
-        title="Edit Current Goods"
+        title="Edit Goods"
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         footer={null}
