@@ -14,7 +14,7 @@ router.post('/add', async (req, res, next) => {
       status: req.body.status,  
     });
     console.log('添加成功, 返回的数据为', docs);
-    res.json(docs);
+    res
   } catch (error) {
     console.error('Error adding data:', error);
     next(error);

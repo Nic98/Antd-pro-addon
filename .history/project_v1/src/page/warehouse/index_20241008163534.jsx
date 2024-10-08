@@ -101,6 +101,7 @@ export default function Warehouse() {
   // }, []);
   const updateTable = async () => {
     try {
+      console.log("table updated");
       const data = await getGoodsList();
       setFilterParamList(data);
       setOriginalData(data);
@@ -116,6 +117,7 @@ export default function Warehouse() {
 
   const handleAddGoods = async (data) => {
     await addGoods(data);
+    console.log("table updated");
     updateTable();
   };
 

@@ -14,7 +14,8 @@ router.post('/add', async (req, res, next) => {
       status: req.body.status,  
     });
     console.log('添加成功, 返回的数据为', docs);
-    res.json(docs);
+    // res.render('添加成功');
+    // res.render('index', { title: '添加成功' });
   } catch (error) {
     console.error('Error adding data:', error);
     next(error);
@@ -36,8 +37,9 @@ router.get('/', async (req, res, next) => {
 });
 
 /* Delet one goods. */
-router.delete('/delete', async (req, res, next) => {
-  const deleteId = req.query._id;
+router.post('/delete', async (req, res, next) => {
+  const deleteId = req._id;
+  console.log(deleteId);
   try {
     const resp = await M.goods.findOne({ _id: deleteId });
     if (resp) {

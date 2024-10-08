@@ -4,7 +4,7 @@ import {
 import _ from 'lodash';
 import React, {useRef, useMemo, useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { addGoods, getGoodsList, deleteGoods } from '../../services/goodsServices.js';
+import { getGoodsList, deleteGoods } from '../../services/goodsServices.js';
 import GoodsForm from './goodsForm.jsx';
 
 
@@ -21,7 +21,6 @@ import GoodsForm from './goodsForm.jsx';
 // }
 
 export default function Warehouse() {
-
   const columns = [{
     title: '规则名称',
     dataIndex: 'name',

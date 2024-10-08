@@ -17,8 +17,9 @@ export const getGoodsList = async (data) => {
 export const addGoods = async (data) => {
   const dataWithKey = { ...data, key: Date.now() };
   try {
+    console.log("")
     const response = await axios.post(API_URL_POST, dataWithKey);
-    console.log('Success:', response);
+    console.log('Success:', response.data);
   } catch (error) {
     console.error('Error adding data:', error);
     throw error;

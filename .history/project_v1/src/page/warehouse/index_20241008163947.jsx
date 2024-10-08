@@ -116,6 +116,7 @@ export default function Warehouse() {
 
   const handleAddGoods = async (data) => {
     await addGoods(data);
+    console.log("table updated");
     updateTable();
   };
 

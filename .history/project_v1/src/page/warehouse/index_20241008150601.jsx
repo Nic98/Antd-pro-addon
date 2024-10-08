@@ -2,10 +2,71 @@ import {
   Input, Table, Divider, Badge,
 } from 'antd';
 import _ from 'lodash';
-import React, {useRef, useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { addGoods, getGoodsList, deleteGoods } from '../../services/goodsServices.js';
+import { getGoodsList } from '../../services/goodsServices.js';
 import GoodsForm from './goodsForm.jsx';
+
+const columns = [{
+  title: '规则名称',
+  dataIndex: 'name',
+  key: 'name',
+}, {
+  title: '描述',
+  dataIndex: 'desc',
+  key: 'desc',
+}, {
+  title: '服务调用次数',
+  dataIndex: 'callNo',
+  key: 'callNo',
+  render: (text, record) => `${record.callNo}万`,
+}, {
+  title: '状态',
+  dataIndex: 'status',
+  key: 'state',
+  render: (text, record) => {
+    let statusText;
+    let statusType;
+
+    switch (record.status) {
+      case '0':
+        statusText = 'Closed';
+        statusType = 'default';
+        break;
+      case '1':
+        statusText = 'Running';
+        statusType = 'processing';
+        break;
+      case '2':
+        statusText = 'Online';
+        statusType = 'success';
+        break;
+      case '3':
+        statusText = 'Error';
+        statusType = 'error';
+        break;
+      default:
+        statusText = 'Unknown';
+        statusType = 'default';
+    }
+    return <Badge status={statusType} text={statusText} />;
+  }
+}, {
+  title: '上次调度时间',
+  dataIndex: 'updatedAt',
+  key: 'updatedAt',
+},
+{
+  title: '删除',
+  key: 'action',
+  render: (text, record) => (
+    <span>
+      <a href="javascript:;">配置</a>
+      <Divider type="vertical" />
+      <a href="javascript:;">订阅警报</a>
+    </span>
+  ),
+}];
 
 
 // function fetchData(url, callback) {
@@ -22,67 +83,6 @@ import GoodsForm from './goodsForm.jsx';
 
 export default function Warehouse() {
 
-  const columns = [{
-    title: '规则名称',
-    dataIndex: 'name',
-    key: 'name',
-  }, {
-    title: '描述',
-    dataIndex: 'desc',
-    key: 'desc',
-  }, {
-    title: '服务调用次数',
-    dataIndex: 'callNo',
-    key: 'callNo',
-    render: (text, record) => `${record.callNo}万`,
-  }, {
-    title: '状态',
-    dataIndex: 'status',
-    key: 'state',
-    render: (text, record) => {
-      let statusText;
-      let statusType;
-  
-      switch (record.status) {
-        case '0':
-          statusText = 'Closed';
-          statusType = 'default';
-          break;
-        case '1':
-          statusText = 'Running';
-          statusType = 'processing';
-          break;
-        case '2':
-          statusText = 'Online';
-          statusType = 'success';
-          break;
-        case '3':
-          statusText = 'Error';
-          statusType = 'error';
-          break;
-        default:
-          statusText = 'Unknown';
-          statusType = 'default';
-      }
-      return <Badge status={statusType} text={statusText} />;
-    }
-  }, {
-    title: '上次调度时间',
-    dataIndex: 'updatedAt',
-    key: 'updatedAt',
-  },
-  {
-    title: '操作',
-    key: 'action',
-    render: (text, record) => (
-      <span>
-        <a href="javascript:;" onClick={() => { handleDeleteGoods(record); }}>删除</a>
-        <Divider type="vertical" />
-        <a href="javascript:;">修改</a>
-      </span>
-    ),
-  }];
-  
   const [associatedvalue, setAssociatedValue] = useState('');
   const [filterparamList, setFilterParamList] = useState([]);
   const [originalData, setOriginalData] = useState([]);
@@ -99,30 +99,18 @@ export default function Warehouse() {
   //   };
   //   xhr.send();
   // }, []);
-  const updateTable = async () => {
-    try {
-      const data = await getGoodsList();
-      setFilterParamList(data);
-      setOriginalData(data);
-    } catch (error) {
-      console.error('Error updating table:', error);
-    }
-  };
-
 
   useEffect(() => {
-    updateTable();
+    getGoodsList()
+      .then(res => {
+        console.log(res);
+        setFilterParamList(res);
+        setOriginalData(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   }, []);
-
-  const handleAddGoods = async (data) => {
-    await addGoods(data);
-    updateTable();
-  };
-
-  const handleDeleteGoods = async (data) => {
-    await deleteGoods(data);
-    updateTable();
-  };
 
   useEffect(() => {
     if (associatedvalue !== '') {  //当value不为空时
@@ -146,7 +134,7 @@ export default function Warehouse() {
   return (
     <div>
       <div>
-        <GoodsForm OnAddGoods={handleAddGoods} />
+        <GoodsForm/>
       </div>
       <Input
         value={associatedvalue || ''}
@@ -161,6 +149,7 @@ export default function Warehouse() {
       <Table
         columns={_.filter(columns, item => item.show !== false)}
         dataSource={_.uniqBy(filterparamList, 'key')}
+        // dataSource={filterparamList}
         pagination={false}
         size="middle"
         scroll={{ y: 350 }}

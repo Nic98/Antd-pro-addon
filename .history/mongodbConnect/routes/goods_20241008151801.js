@@ -14,7 +14,8 @@ router.post('/add', async (req, res, next) => {
       status: req.body.status,  
     });
     console.log('添加成功, 返回的数据为', docs);
-    res.json(docs);
+    // res.render('添加成功');
+    // res.render('index', { title: '添加成功' });
   } catch (error) {
     console.error('Error adding data:', error);
     next(error);
@@ -36,20 +37,20 @@ router.get('/', async (req, res, next) => {
 });
 
 /* Delet one goods. */
-router.delete('/delete', async (req, res, next) => {
-  const deleteId = req.query._id;
+router.post('/delete', async (req, res, next) => {
+  const deleteId = req.query.id;
   try {
-    const resp = await M.goods.findOne({ _id: deleteId });
-    if (resp) {
-      await resp.remove();
-      console.log(`已删除${deleteId}`);
-      res.status(200).json({ message: `Item with ID ${deleteId} has been deleted.` });
-    } else {
-      console.error(`删除的ID${deleteId}库里没数据`);
-      res.status(404).json({ error: `Item with ID ${deleteId} not found.` });
-    }
-  } catch (error) {
-    console.error(`Error deleting item with ID ${deleteId}:`, error);
+  } catch {
+    
+  }
+  
+  const resp = await M.goods.findOne({ _id: deleteId || 0 });
+  if (resp) {
+    resp.remove();
+    console.log(`已删除${deleteId}`);
+  } else {
+    // res.render('index', { title: `删除的ID${deleteId}库里没数据` });
+    console.error(`删除的ID${deleteId}库里没数据`, error);
     next(error);
   }
 });

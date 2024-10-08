@@ -8,7 +8,7 @@ import {
   Select,
 } from 'antd';
 
-import { addGoods } from '../services/goodsServices.js';
+import { addGoods } from '../../services/goodsServices.js';
 
 const formItemLayout = {
   labelCol: {
@@ -29,24 +29,16 @@ const formItemLayout = {
   },
 };
 
+const goodsForm = ({ OnAddGoods }) => {
 
-const goodsForm = () => {
-  const [componentVariant, setComponentVariant] = useState('filled');
-  const onFormVariantChange = ({ variant }) => {
-    setComponentVariant(variant);
-  };
+
   return (
     <Form
       {...formItemLayout}
-      onValuesChange={onFormVariantChange}
-      variant={componentVariant}
       style={{
         maxWidth: 600,
       }}
-      initialValues={{
-        variant: componentVariant,
-      }}
-      onFinish={addGoods}
+      onFinish={OnAddGoods}
     >
 
       <Form.Item
@@ -93,17 +85,23 @@ const goodsForm = () => {
       </Form.Item>
 
       <Form.Item
-        label="status"
+        label="Status"
         name="status"
+        rules={[
+          {
+          required: true,
+          message: 'Please input!',
+          },
+        ]}
       >
         <Select
           defaultValue="Running"
           style={{ width: 120 }}
           options={[
             { value: '1', label: 'Running' },
+            { value: '2', label: 'Online' },
             { value: '3', label: 'Error' },
-            { value: '2', label: 'Closed' },
-            { value: '4', label: 'Online' },
+            { value: '0', label: 'Closed' },
           ]}
         />
       </Form.Item>

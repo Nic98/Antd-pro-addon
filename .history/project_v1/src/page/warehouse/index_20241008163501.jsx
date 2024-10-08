@@ -101,6 +101,7 @@ export default function Warehouse() {
   // }, []);
   const updateTable = async () => {
     try {
+      console.log("table updated");
       const data = await getGoodsList();
       setFilterParamList(data);
       setOriginalData(data);
@@ -112,6 +113,7 @@ export default function Warehouse() {
 
   useEffect(() => {
     updateTable();
+    
   }, []);
 
   const handleAddGoods = async (data) => {

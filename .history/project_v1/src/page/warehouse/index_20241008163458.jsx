@@ -112,6 +112,7 @@ export default function Warehouse() {
 
   useEffect(() => {
     updateTable();
+    
   }, []);
 
   const handleAddGoods = async (data) => {
