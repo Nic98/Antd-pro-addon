@@ -11,7 +11,7 @@ var indexRouter = require('./routes/index');
 var goodsRouter = require('./routes/goods');
 var userRouter = require('./routes/user');
 var studentRouter = require('./routes/student');
-var projectSchemaRouter = require('./routes/projectSchema');
+
 
 
 global.M = {}; // 声明全局数据库model实体表 简写M
@@ -50,7 +50,7 @@ app.use('/', indexRouter);
 app.use('/goods', goodsRouter);
 app.use('/user', userRouter);
 app.use('/student', studentRouter);
-app.use('/projectSchema', projectSchemaRouter); // 项目的数据库表
+app.use('')
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -50,7 +50,7 @@ app.use('/', indexRouter);
 app.use('/goods', goodsRouter);
 app.use('/user', userRouter);
 app.use('/student', studentRouter);
-app.use('/projectSchema', projectSchemaRouter); // 项目的数据库表
+app.use('/projectSchema', ); // 项目的数据库表
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
