@@ -15,7 +15,7 @@ function handleConstruct(record) {
   const { pageName } = record;
 
 
-    const editorWindow = window.open('http://localhost:5556?scenarioName=' + pageName, "_blank"); // 打开新页面
+    const editorWindow = window.open('http://localhost:5556?scenarioName=', '_blank');
     editorWindow.onload = () => {
         console.log('Sending message from:', window.location.origin);
         // 这里的目标 origin 应该是 http://localhost:5556
